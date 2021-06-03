@@ -19,7 +19,7 @@ app.use(urlencodedParser);
 app.use(cors());
 app.post("/contact", ({ body }, res) => {
   const { name, email, message } = body;
-  var transporter = nodemailer.createTransport({
+  const options = {
     host: "mail.hosting.de",
     port: process.env.SMTP,
     secure: +process.env.SMTP === 465, // true for 465, false for other ports
@@ -27,8 +27,10 @@ app.post("/contact", ({ body }, res) => {
       user: process.env.FROM_EMAIL,
       pass: process.env.PWD_EMAIL,
     },
-  });
-  console.log(transporter);
+  };
+  console.log(options);
+
+  var transporter = nodemailer.createTransport(options);
   var mailOptions = {
     from: { name: "Odysseus Info", address: process.env.FROM_EMAIL },
     to: process.env.TO_EMAIL,
