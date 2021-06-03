@@ -21,7 +21,7 @@ app.post("/contact", ({ body }, res) => {
   const { name, email, message } = body;
   var transporter = nodemailer.createTransport({
     host: "mail.hosting.de",
-    port: 25,
+    port: process.env.SMTP,
     secure: false, // true for 465, false for other ports
     auth: {
       user: process.env.FROM_EMAIL,
