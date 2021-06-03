@@ -2,6 +2,9 @@ const express = require("express");
 const nodemailer = require("nodemailer");
 var bodyParser = require("body-parser");
 const cors = require("cors");
+const https = require("https");
+var fs = require("fs");
+
 require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 3000;
@@ -48,6 +51,18 @@ app.post("/contact", ({ body }, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
+if (process.env.DEV) {
+  app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+  });
+} else {
+  var option = {
+    key: fs.readFileSync(
+      "/etc/letsencrypt/live/api.odysseus.space/privkey.pem"
+    ),
+    cert: fs.readFileSync(
+      "/etc/letsencrypt/live/api.odysseus.space/fullchain.pem"
+    ),
+  };
+  https.createServer(option, app).listen(8000);
+}
