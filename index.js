@@ -63,6 +63,7 @@ if (process.env.DEV) {
     cert: fs.readFileSync(
       "/etc/letsencrypt/live/api.odysseus.space/fullchain.pem"
     ),
+    ca: fs.readFileSync("/etc/letsencrypt/live/api.odysseus.space/chain.pem"),
   };
-  https.createServer(option, app).listen(8000);
+  https.createServer(option, app).listen(443);
 }
