@@ -21,7 +21,7 @@ app.post("/contact", ({ body }, res) => {
   const { name, email, message } = body;
   const options = {
     host: "mail.hosting.de",
-    port: process.env.SMTP,
+    port: +process.env.SMTP,
     secure: +process.env.SMTP === 465, // true for 465, false for other ports
     auth: {
       user: process.env.FROM_EMAIL,
