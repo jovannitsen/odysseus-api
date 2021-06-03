@@ -22,13 +22,13 @@ app.post("/contact", ({ body }, res) => {
   var transporter = nodemailer.createTransport({
     host: "mail.hosting.de",
     port: process.env.SMTP,
-    secure: false, // true for 465, false for other ports
+    secure: +process.env.SMTP === 465, // true for 465, false for other ports
     auth: {
       user: process.env.FROM_EMAIL,
       pass: process.env.PWD_EMAIL,
     },
   });
-
+  console.log(transporter);
   var mailOptions = {
     from: { name: "Odysseus Info", address: process.env.FROM_EMAIL },
     to: process.env.TO_EMAIL,
