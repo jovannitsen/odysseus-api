@@ -56,12 +56,22 @@ if (process.env.DEV) {
     console.log(`Server running at http://localhost:${port}`);
   });
 } else {
+  console.log("configuring https");
   var option = {
     key: fs.readFileSync(
-      "/etc/letsencrypt/live/api.odysseus.space/privkey.pem"
+      "/etc/letsencrypt/live/api.odysseus.space/privkey.pem",
+      "utf8"
     ),
-    cert: fs.readFileSync("/etc/letsencrypt/live/api.odysseus.space/cert.pem"),
-    ca: fs.readFileSync("/etc/letsencrypt/live/api.odysseus.space/chain.pem"),
+    cert: fs.readFileSync(
+      "/etc/letsencrypt/live/api.odysseus.space/cert.pem",
+      "utf8"
+    ),
+    ca: fs.readFileSync(
+      "/etc/letsencrypt/live/api.odysseus.space/chain.pem",
+      "utf8"
+    ),
   };
-  https.createServer(option, app).listen(443);
+  https.createServer(option, app).listen(443, () => {
+    console.log("running on port 443");
+  });
 }
