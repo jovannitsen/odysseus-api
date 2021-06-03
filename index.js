@@ -60,9 +60,7 @@ if (process.env.DEV) {
     key: fs.readFileSync(
       "/etc/letsencrypt/live/api.odysseus.space/privkey.pem"
     ),
-    cert: fs.readFileSync(
-      "/etc/letsencrypt/live/api.odysseus.space/fullchain.pem"
-    ),
+    cert: fs.readFileSync("/etc/letsencrypt/live/api.odysseus.space/cert.pem"),
     ca: fs.readFileSync("/etc/letsencrypt/live/api.odysseus.space/chain.pem"),
   };
   https.createServer(option, app).listen(443);
