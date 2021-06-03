@@ -39,19 +39,23 @@ app.post("/contact", ({ body }, res) => {
     html: `<p><b>Contact name :</b> ${name}</p><p><b>Contact email :</b> ${email}</p><p><b>Message :</b></p><p>${message}</p>`,
   };
   console.log("send message");
-  transporter.sendMail(mailOptions, function (error, info) {
-    console.log(error, info);
-    if (error) {
-      res.status(500).send();
-    } else {
-      var response = {
-        status: 200,
-        success: "Updated Successfully",
-      };
+  try {
+    transporter.sendMail(mailOptions, function (error, info) {
+      console.log(error, info);
+      if (error) {
+        res.status(500).send();
+      } else {
+        var response = {
+          status: 200,
+          success: "Updated Successfully",
+        };
 
-      res.end(JSON.stringify(response));
-    }
-  });
+        res.end(JSON.stringify(response));
+      }
+    });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 if (process.env.DEV) {
