@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "pm2-start": "pm2 start npm --no-automation --name ftapi -- run start"
+    "pm2-start": "pm2 start npm --no-automation --name odysseus-api -- run start"
   },
   "repository": {
     "type": "git",
